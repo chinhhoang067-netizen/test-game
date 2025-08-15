@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trò Chơi Đoán Số của Thảo</title>
+    <style>
+        body {
+            font-family: 'Comic Sans MS', Arial, sans-serif;
+            background: linear-gradient(to right, #ffecd2, #fcb69f);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            color: #333;
+        }
+        .game-container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+        }
+        h1 {
+            color: #e91e63;
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+        p {
+            font-size: 18px;
+            color: #555;
+        }
+        input[type="number"] {
+            padding: 10px;
+            font-size: 16px;
+            width: 100px;
+            margin: 10px 0;
+            border: 2px solid #4CAF50;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #result {
+            margin-top: 20px;
+            font-size: 20px;
+            font-weight: bold;
+            color: #e91e63;
+        }
+        #attempts {
+            font-size: 16px;
+            color: #777;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <h1>Thảo Ơi, Đoán Số Nào!</h1>
+        <p>Nhập một số từ 1 đến 100 và thử vận may của bạn!</p>
+        <input type="number" id="guessInput" min="1" max="100" placeholder="Nhập số">
+        <button onclick="checkGuess()">Đoán!</button>
+        <p id="result"></p>
+        <p id="attempts">Số lần đoán: 0</p>
+    </div>
+
+    <script>
+        let randomNumber = Math.floor(Math.random() * 100) + 1;
+        let attempts = 0;
+
+        function checkGuess() {
+            const guess = parseInt(document.getElementById('guessInput').value);
+            const result = document.getElementById('result');
+            attempts++;
+            document.getElementById('attempts').innerText = `Số lần đoán: ${attempts}`;
+
+            if (isNaN(guess) || guess < 1 || guess > 100) {
+                result.innerText = "Thảo ơi, hãy nhập số từ 1 đến 100 nha!";
+                return;
+            }
+
+            if (guess === randomNumber) {
+                result.innerText = `Chúc mừng Thảo! Đúng số ${randomNumber} rồi! 🎉`;
+                result.style.color = '#4CAF50';
+            } else if (guess < randomNumber) {
+                result.innerText = "Hihi, số của Thảo nhỏ quá! Thử số lớn hơn nè!";
+            } else {
+                result.innerText = "Ôi, số của Thảo lớn quá! Thử số nhỏ hơn xem sao!";
+            }
+        }
+
+        // Cho phép nhấn Enter để đoán
+        document.getElementById('guessInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                checkGuess();
+            }
+        });
+    </script>
+</body>
+</html>
